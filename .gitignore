@@ -3,3 +3,8 @@ credential*.txt
 *.token
 *.log
 creds.json
+
+# 打包构建产物
+dist/
+build/
+*.spec

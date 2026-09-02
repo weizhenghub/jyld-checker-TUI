@@ -41,8 +41,14 @@ DEFAULT_INTERVAL = 30
 MIN_INTERVAL = 1
 MAX_INTERVAL = 600
 
-# 多 key 持久化文件（放项目目录，已被 .gitignore 排除）
-STORAGE = Path(__file__).resolve().parent / "creds.json"
+# 多 key 持久化文件。
+# 源码运行时放项目目录；打包成 exe 时 __file__ 指向临时解压目录(_MEIPASS)，
+# 因此改用 exe 所在目录，保证重启后 sess 仍在。
+if getattr(sys, "frozen", False):
+    _BASE_DIR = Path(sys.executable).resolve().parent
+else:
+    _BASE_DIR = Path(__file__).resolve().parent
+STORAGE = _BASE_DIR / "creds.json"
 
 
 def _os_clipboard_text():
