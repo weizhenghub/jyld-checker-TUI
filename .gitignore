@@ -1,0 +1,5 @@
+# 凭据/敏感文件，切勿提交
+credential*.txt
+*.token
+*.log
+creds.json
