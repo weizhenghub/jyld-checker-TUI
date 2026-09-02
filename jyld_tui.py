@@ -5,8 +5,8 @@
 =============================================================
 
 用法：
-    python jyld_tui.py                                # 启动后在首屏粘贴凭据串
-    python jyld_tui.py "手机号----sess_xxx----sk_tr_xxx"   # 直接传凭据
+    python jyld_tui.py                                # 启动后在首屏粘贴 sess
+    python jyld_tui.py "sess_xxx"                      # 直接传 sess 启动
     python jyld_tui.py --interval 60 "sess_xxx"        # 指定默认刷新间隔(秒)
 
 交互（三态焦点，↑↓ 切换层）：
@@ -701,7 +701,8 @@ class BallanceTUI(App):
 
     async def _fetch_one_async(self, i):
         cred = parse_credential(self.keys[i]["raw"])
-        token = cred.get("sess") or cred.get("sk")
+        # 只支持 sess（实测 sk 查不到，不再提供 sk 路径）
+        token = cred.get("sess")
         if not token:
             return
         raw = self.keys[i]["raw"]
@@ -714,7 +715,8 @@ class BallanceTUI(App):
             self.sess_data[raw] = {"me": me, "wallet": wallet, "usage": usage}
             self._refresh_container(i)
         except Exception as e:
-            self.notify(f"sess[{i}] 拉取失败: {e}", severity="error", timeout=4)
+            # 查不了就算了：容器保持无数据，仅提示一次
+            self.notify(f"sess[{i}] 查询失败: {e}", severity="error", timeout=4)
 
     # ---------- 刷新调度 ----------
 
@@ -750,8 +752,11 @@ class BallanceTUI(App):
     def on_input_submitted(self, event: Input.Submitted) -> None:
         raw = event.value
         crd = parse_credential(raw)
-        if not (crd.get("sess") or crd.get("sk")):
-            self.notify("未识别到 sess_ 或 sk_ 令牌，请检查输入。", severity="error", timeout=5)
+        if crd.get("sk") and not crd.get("sess"):
+            self.notify("sk api-key 无法查询余额，请改用 sess 令牌。", severity="error", timeout=5)
+            return
+        if not crd.get("sess"):
+            self.notify("未识别到 sess_ 令牌，请检查输入。", severity="error", timeout=5)
             return
         if event.input.id == "key-add":
             self._add_key(raw, crd, activate=True)
