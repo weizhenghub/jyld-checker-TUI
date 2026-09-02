@@ -1,4 +1,4 @@
-# 使用TUI直观管理多个基元律动账号额度
+# 使用TUI管理多个基元律动账号额度
 
 <img width="1113" height="623" alt="11123213123" src="https://github.com/user-attachments/assets/24063bb3-b638-4ca6-826b-138cf81dc94c" />  
 
