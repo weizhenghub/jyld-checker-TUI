@@ -15,10 +15,10 @@
 🖥️ 双击即用：`jyld_tui.bat` 一键启动 TUI  
 
 控制：
-使用键盘上下键控制层
-第一层：在容器之间切换（←/→ 切换下一个容器）
-第二层：当前选中的容器内按钮（←/→ 在「删除 / 前移 / 高级状态」间移动，Enter 执行）
-第三层：输入框，输入sess来新增（粘贴后 Enter 添加）
+使用键盘上下键控制层  
+第一层：在容器之间切换（←/→ 切换下一个容器）  
+第二层：当前选中的容器内按钮（←/→ 在「删除 / 前移 / 高级状态」间移动，Enter 执行）  
+第三层：输入框，输入sess来新增（粘贴后 Enter 添加）  
 此处显示了您位于哪一层  
 <img width="157" height="115" alt="image" src="https://github.com/user-attachments/assets/99de81b9-659c-48b1-ad2a-f07c8d30ce74" />
 <img width="151" height="103" alt="image" src="https://github.com/user-attachments/assets/c07458c2-f4af-4687-943d-11500cdfc482" />
